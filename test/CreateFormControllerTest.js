@@ -14,7 +14,6 @@ class MockResponse {
 }
 
 describe('CreateFormController test', () => {
-
     const validForm = {
         endDate: new Date(),
         questions: [
