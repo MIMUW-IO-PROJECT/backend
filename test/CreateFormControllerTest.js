@@ -1,5 +1,5 @@
 const assert = require("assert");
-
+const samples = require("./samples");
 const CreateFormController = require("../src/controllers/CreateFormController");
 const InMemoryFormRepo = require("./InMemoryRepo");
 
@@ -14,30 +14,6 @@ class MockResponse {
 }
 
 describe("CreateFormController test", () => {
-  const validForm = {
-    endDate: new Date(),
-    questions: [
-      {
-        type: "SINGLE",
-        question: "Blah blah blah?",
-        answers: ["OK", "NOPE", "WHY?"],
-      },
-      {
-        type: "MULTI",
-        question: "Blah blah blah?",
-        answers: ["OK", "NOPE", "WHY?"],
-      },
-      {
-        type: "OPEN",
-        question: "Blah blah blah?",
-      },
-    ],
-  };
-
-  const validEmptyResults = {
-    formId: 0,
-    results: [[0, 0, 0], [0, 0, 0], []],
-  };
 
   beforeEach(() => {
     this.repo = new InMemoryFormRepo();
@@ -46,12 +22,12 @@ describe("CreateFormController test", () => {
   });
 
   it("should save valid form", () => {
-    let request = { body: validForm };
+    let request = { body: samples.FORM };
     let res = new MockResponse();
 
     this.api.post(request, res);
 
-    assert.deepEqual(this.repo.get(res.body.id), validForm);
+    assert.deepEqual(this.repo.get(res.body.id), samples.FORM);
   });
 
   it("should block invalid form", () => {

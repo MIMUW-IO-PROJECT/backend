@@ -1,7 +1,7 @@
 function define(name, value) {
   Object.defineProperty(exports, name, {
     value: value,
-    enumerable: true,
+    writable: false,
   });
 }
 
@@ -11,3 +11,5 @@ define("OPEN", "OPEN");
 
 define("MIN_QUESTIONS_AMOUNT", 2);
 define("MIN_ANSWERS_AMOUNT", 2);
+
+Object.freeze(exports);

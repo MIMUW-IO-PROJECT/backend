@@ -1,5 +1,5 @@
 const assert = require("assert");
-
+const samples = require("./samples");
 const InMemoryRepo = require("./InMemoryRepo");
 const SubmitAnswersController = require("../src/controllers/SubmitAnswersController");
 
@@ -14,58 +14,28 @@ class MockResponse {
 }
 
 describe("SubmitAnswerController test", () => {
-  const validForm = {
-    endDate: new Date(),
-    questions: [
-      {
-        type: "SINGLE",
-        question: "Blah blah blah?",
-        answers: ["OK", "NOPE", "WHY?"],
-      },
-      {
-        type: "MULTI",
-        question: "Blah blah blah?",
-        answers: ["OK", "NOPE", "WHY?"],
-      },
-      {
-        type: "OPEN",
-        question: "Blah blah blah?",
-      },
-    ],
-  };
-
-  const validAnswer = {
-    formId: 0,
-    answers: [1, [0, 1, 2], "Why not?"],
-  };
-
-  const validEmptyResults = {
-    formId: 0,
-    results: [[0, 0, 0], [0, 0, 0], []],
-  };
-
   beforeEach(() => {
     let formRepo = new InMemoryRepo();
     let answerRepo = new InMemoryRepo();
     let resultsRepo = new InMemoryRepo();
 
-    formRepo.save(validForm);
-    resultsRepo.save(validEmptyResults);
+    formRepo.save(samples.FORM);
+    resultsRepo.save(samples.RES);
     this.api = new SubmitAnswersController(formRepo, answerRepo, resultsRepo);
   });
 
   it("should save valid answer", () => {
-    let answer = JSON.parse(JSON.stringify(validAnswer));
+    let answer = JSON.parse(JSON.stringify(samples.ANS));
     let request = { body: answer };
     let res = new MockResponse();
 
     this.api.post(request, res);
 
-    assert.deepEqual(this.api.answerRepository.get(res.body.id), validAnswer);
+    assert.deepEqual(this.api.answerRepository.get(res.body.id), samples.ANS);
   });
 
   it("should block invalid answer", () => {
-    let answer = JSON.parse(JSON.stringify(validAnswer));
+    let answer = JSON.parse(JSON.stringify(samples.ANS));
     answer.answers[1] = [1, 5, 6];
 
     let request = { body: answer };
