@@ -18,13 +18,21 @@ module.exports = class GetResultsController {
       .get(this.get);
   }
 
+<<<<<<< HEAD
   post = async (req, res) => {
+=======
+  get = async (req, res) => {
+>>>>>>> da117d1 (Add mock answer handler)
     const formId = req.body.id;
 
     if (this.repo.contains(formId)) {
       res.send(this.repo.get(formId));
     } else {
+<<<<<<< HEAD
       res.status(404).send(`Form ${formId} does not exist.`);
+=======
+      res.status(404).send(`Results for form ${formId} do not exist.`);
+>>>>>>> da117d1 (Add mock answer handler)
     }
   }
 
