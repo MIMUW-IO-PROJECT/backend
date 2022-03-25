@@ -15,11 +15,12 @@ if (config.error) {
 // TODO: zamienić na mongo
 let formRepo = new InMemoryRepo();
 let answerRepo = new InMemoryRepo();
+let resultsRepo = new InMemoryRepo();
 
 // Tutaj należy dodawać nowe kontrolery.
 const controllers = [
   new CreateFormController(formRepo),
-  new SubmitAnswersController(formRepo, answerRepo)
+  new SubmitAnswersController(formRepo, answerRepo, resultsRepo)
 ];
 
 const app = new App(controllers);
