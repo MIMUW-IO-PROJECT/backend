@@ -16,19 +16,19 @@ describe('Closed question validation test', () => {
     });
 
     it('should block when type invalid', () => {
-        let q = validClosedQuestion;
+        let q = JSON.parse(JSON.stringify(validClosedQuestion));
         q.type = "INVALID_TYPE";
         assert(!ClosedQuestionValidator.isValid(q));
     });
 
     it('should block when question not set', () => {
-        let q = validClosedQuestion;
+        let q = JSON.parse(JSON.stringify(validClosedQuestion));
         q.question = undefined;
         assert(!ClosedQuestionValidator.isValid(q));
     });
 
     it('should block when not enough available answers', () => {
-        let q = validClosedQuestion;
+        let q = JSON.parse(JSON.stringify(validClosedQuestion));
         q.answers = ["A"];
         assert(!ClosedQuestionValidator.isValid(q));
     });

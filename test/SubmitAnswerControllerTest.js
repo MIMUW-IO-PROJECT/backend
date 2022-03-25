@@ -43,7 +43,7 @@ describe('SubmitAnswerRepository test', () => {
         formId: 0,
         answers: [
             1,
-            [1, 2, 0],
+            [0, 1, 2],
             "Why not?"
         ]
     }
@@ -57,7 +57,8 @@ describe('SubmitAnswerRepository test', () => {
     });
  
     it('should save valid answer', () => {
-        let request = {body: validAnswer};
+        let answer = JSON.parse(JSON.stringify(validAnswer));
+        let request = {body: answer};
         let res = new MockResponse();
 
         this.api.post(request, res);
@@ -66,7 +67,7 @@ describe('SubmitAnswerRepository test', () => {
     });
 
     it('should block invalid answer', () => {
-        let answer = validAnswer;
+        let answer = JSON.parse(JSON.stringify(validAnswer));
         answer.answers[1] = [1, 5, 6];
 
         let request = {body: answer};

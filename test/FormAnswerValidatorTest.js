@@ -48,25 +48,25 @@ describe('Form Answer Validation Test', () => {
     });
 
     it('should block out of range closed single question answer', () => {
-        let answer = validAnswer
+        let answer = JSON.parse(JSON.stringify(validAnswer));
         answer.answers[0] = 5;
         assert(!this.validator.isValid(answer));
     });
 
     it('should block not integer closed single question answer', () => {
-        let answer = validAnswer
+        let answer = JSON.parse(JSON.stringify(validAnswer));
         answer.answers[0] = "INVALID";
         assert(!this.validator.isValid(answer));
     });
 
     it('should block out of range closed multi question answer', () => {
-        let answer = validAnswer
+        let answer = JSON.parse(JSON.stringify(validAnswer));
         answer.answers[1] = [1, 5, 6];
         assert(!this.validator.isValid(answer));
     });
 
     it('should block not array closed multi question answer', () => {
-        let answer = validAnswer
+        let answer = JSON.parse(JSON.stringify(validAnswer));
         answer.answers[1] = "INVALID";
         assert(!this.validator.isValid(answer));
     });

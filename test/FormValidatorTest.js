@@ -1,6 +1,5 @@
 const assert = require('assert');
 const FormValidator = require('../src/validators/FormValidator');
-const constants = require('../src/constants')
 
 describe('Form Validation Test', () => {
 
@@ -33,13 +32,13 @@ describe('Form Validation Test', () => {
     });
 
     it('should block form when endDate not set', () => {
-        let form = validForm;
+        let form = JSON.parse(JSON.stringify(validForm));
         form.endDate = undefined;
         assert(!FormValidator.isValid(form));
     });
 
     it('should block form when no questions', () => {
-        let form = validForm;
+        let form = JSON.parse(JSON.stringify(validForm));
         form.questions = [];
         assert(!FormValidator.isValid(form));
     });

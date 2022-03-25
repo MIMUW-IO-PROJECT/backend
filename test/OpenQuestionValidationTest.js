@@ -13,13 +13,13 @@ describe('Open question validation test', () => {
     });
 
     it('should block when type invalid', () => {
-        let q = validOpenQuestion;
+        let q = JSON.parse(JSON.stringify(validOpenQuestion));
         q.type = "INVALID_TYPE";
         assert(!OpenQuestionValidator.isValid(q));
     });
 
     it('should block when question not set', () => {
-        let q = validOpenQuestion;
+        let q = JSON.parse(JSON.stringify(validOpenQuestion));
         q.question = undefined;
         assert(!OpenQuestionValidator.isValid(q));
     });
