@@ -14,7 +14,6 @@ class MockResponse {
 }
 
 describe("CreateFormController test", () => {
-
   beforeEach(() => {
     this.repo = new InMemoryFormRepo();
     this.resultsRepo = new InMemoryFormRepo();

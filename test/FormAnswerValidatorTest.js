@@ -4,7 +4,6 @@ const InMemoryFormRepo = require("./InMemoryRepo");
 const FormAnswerValidator = require("../src/validators/FormAnswerValidator");
 
 describe("Form Answer Validation Test", () => {
-
   before(() => {
     let formRepo = new InMemoryFormRepo();
     formRepo.save(samples.FORM);
