@@ -13,7 +13,7 @@ class MockResponse {
   }
 }
 
-describe("SubmitAnswerRepository test", () => {
+describe("SubmitAnswerController test", () => {
   const validForm = {
     endDate: new Date(),
     questions: [
@@ -39,12 +39,19 @@ describe("SubmitAnswerRepository test", () => {
     answers: [1, [0, 1, 2], "Why not?"],
   };
 
+  const validEmptyResults = {
+    formId: 0,
+    results: [[0, 0, 0], [0, 0, 0], []],
+  };
+
   beforeEach(() => {
     let formRepo = new InMemoryRepo();
     let answerRepo = new InMemoryRepo();
+    let resultsRepo = new InMemoryRepo();
 
     formRepo.save(validForm);
-    this.api = new SubmitAnswersController(formRepo, answerRepo);
+    resultsRepo.save(validEmptyResults);
+    this.api = new SubmitAnswersController(formRepo, answerRepo, resultsRepo);
   });
 
   it("should save valid answer", () => {

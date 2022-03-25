@@ -1,11 +1,13 @@
 const express = require("express");
 const FormValidator = require("../validators/FormValidator");
+const constants = require("../constants");
 
 module.exports = class CreateFormController {
-  constructor(formRepository) {
+  constructor(formRepository, resultsRepostitory) {
     this.path = "/create";
     this.router = express.Router();
-    this.formRepository = formRepository;
+    this.formRepo = formRepository;
+    this.resultsRepo = resultsRepostitory;
 
     this.initializeRoutes();
     console.log("CreateFormController initialized");
@@ -19,7 +21,8 @@ module.exports = class CreateFormController {
     const form = this.getForm(req.body);
 
     if (FormValidator.isValid(form)) {
-      const id = this.formRepository.save(form);
+      const id = this.formRepo.save(form);
+      this.resultsRepo.save(this.createEmptyResults(form, id));
       console.log(`Form created ${form}`);
       res.send(id);
     } else {
@@ -33,5 +36,18 @@ module.exports = class CreateFormController {
       endDate: form.endDate,
       questions: form.questions,
     };
+  }
+
+  createEmptyResults(form, formId) {
+    let r = {formId: formId, results: []};
+    form.questions.forEach(q => {
+      if (q.type === constants.SINGLE_ANS 
+        || q.type === constants.MULTI_ANS) {
+        r.results.push(Array(q.answers.length).fill(0));
+      } else {
+        r.results.push(Array());
+      }
+    });
+    return r;
   }
 };

@@ -8,18 +8,23 @@ class InMemoryRepo {
     return this.storage.get(id);
   }
 
-  save(form) {
-    this.storage.set(this.nextId, form);
+  save(val) {
+    this.storage.set(this.nextId, val);
     ++this.nextId;
     return this.nextId - 1;
+  }
+
+  update(key, val) {
+    this.storage[key] = val;
+    return;
   }
 
   isEmpty() {
     return this.storage.size === 0;
   }
 
-  contains(id) {
-    return this.storage.has(id);
+  contains(key) {
+    return this.storage.has(key);
   }
 
   clear() {

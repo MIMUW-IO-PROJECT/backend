@@ -9,7 +9,7 @@ module.exports = class SubmitAnswersController {
 
     this.answerRepository = answerRepository;
     this.validator = new FormAnswerValidator(formRepository);
-    this.answerHandler = new AnswerHandler(resultsRepository);
+    this.answerHandler = new AnswerHandler(resultsRepository, formRepository);
 
     this.initializeRoutes();
     console.log("SubmitAnswersController initialized");

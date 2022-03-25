@@ -34,9 +34,15 @@ describe("CreateFormController test", () => {
     ],
   };
 
+  const validEmptyResults = {
+    formId: 0,
+    results: [[0, 0, 0], [0, 0, 0], []],
+  };
+
   beforeEach(() => {
     this.repo = new InMemoryFormRepo();
-    this.api = new CreateFormController(this.repo);
+    this.resultsRepo = new InMemoryFormRepo();
+    this.api = new CreateFormController(this.repo, this.resultsRepo);
   });
 
   it("should save valid form", () => {
@@ -55,5 +61,6 @@ describe("CreateFormController test", () => {
     this.api.post(request, res);
 
     assert(this.repo.isEmpty());
+    assert(this.resultsRepo.isEmpty());
   });
 });
