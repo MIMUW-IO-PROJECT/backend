@@ -1,6 +1,6 @@
 const App = require("./App");
 const CreateFormController = require("./controllers/CreateFormController");
-const InMemoryFormRepo = require ("../test/InMemoryFormRepo");
+const InMemoryFormRepo = require ("../test/InMemoryRepo");
 const dotenv = require("dotenv");
 
 // To jest plik główny projektu.
@@ -11,7 +11,7 @@ if (config.error) {
   console.log(config.error);
 }
 
-// TODO: zamienić na mongo repo.
+// TODO: zamienić na mongo
 let repo = new InMemoryFormRepo();
 
 // Tutaj należy dodawać nowe kontrolery.

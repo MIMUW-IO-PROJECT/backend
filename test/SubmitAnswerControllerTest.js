@@ -1,7 +1,7 @@
 const assert = require('assert');
  
-const CreateFormController = require('../src/controllers/CreateFormController');
-const InMemoryFormRepo = require('./InMemoryRepo');
+const InMemoryRepo = require('./InMemoryRepo');
+const SubmitAnswersController = require('../src/controllers/SubmitAnswersController')
 
 class MockResponse {
     constructor() {
@@ -13,7 +13,7 @@ class MockResponse {
     }
 }
 
-describe('CreateFormController test', () => {
+describe('SubmitAnswerRepository test', () => {
 
     const validForm = {
         endDate: new Date(),
@@ -39,27 +39,42 @@ describe('CreateFormController test', () => {
         ]
     }
 
+    const validAnswer = {
+        formId: 0,
+        answers: [
+            1,
+            [1, 2, 0],
+            "Why not?"
+        ]
+    }
+
     beforeEach(() => {
-        this.repo = new InMemoryFormRepo();
-        this.api = new CreateFormController(this.repo);
+        let formRepo = new InMemoryRepo();
+        let answerRepo = new InMemoryRepo();
+
+        formRepo.save(validForm);
+        this.api = new SubmitAnswersController(formRepo, answerRepo);
     });
  
-    it('should save valid form', () => {
-        let request = {body: validForm};
+    it('should save valid answer', () => {
+        let request = {body: validAnswer};
         let res = new MockResponse();
 
         this.api.post(request, res);
         
-        assert.deepEqual(this.repo.get(res.body.id), validForm);
+        assert.deepEqual(this.api.answerRepository.get(res.body.id), validAnswer);
     });
 
-    it('should block invalid form', () => {
-        let request = {};
+    it('should block invalid answer', () => {
+        let answer = validAnswer;
+        answer.answers[1] = [1, 5, 6];
+
+        let request = {body: answer};
         let res = new MockResponse();
 
         this.api.post(request, res);
         
-        assert(this.repo.isEmpty());
+        assert(this.api.answerRepository.isEmpty());
     });
   
  

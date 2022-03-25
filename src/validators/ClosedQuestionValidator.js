@@ -1,5 +1,4 @@
 const constants = require('../constants')
-const validator = require('validator')
 
 class ClosedQuestionValidator {
 
@@ -11,4 +10,5 @@ class ClosedQuestionValidator {
     }
 
 }
+
 module.exports = ClosedQuestionValidator;
