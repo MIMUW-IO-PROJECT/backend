@@ -1,7 +1,6 @@
 const express = require("express");
 
 module.exports = class GetResultsController {
-
   constructor(resultsRepository) {
     this.path = "/results";
     this.router = express.Router();
@@ -13,9 +12,7 @@ module.exports = class GetResultsController {
   }
 
   initializeRoutes() {
-    this.router
-      .route(`${this.path}`)
-      .get(this.get);
+    this.router.route(`${this.path}`).get(this.get);
   }
 
   get = async (req, res) => {
@@ -24,8 +21,7 @@ module.exports = class GetResultsController {
     if (this.repo.contains(formId)) {
       res.send(this.repo.get(formId));
     } else {
-      res.status(404).send(`Results for form ${formId} do not exist.`);
+      res.status(404).send(`Form ${formId} does not exist.`);
     }
-  }
-
+  };
 };

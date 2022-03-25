@@ -1,6 +1,6 @@
 const App = require("./App");
 const CreateFormController = require("./controllers/CreateFormController");
-const InMemoryRepo = require ("../test/InMemoryRepo");
+const InMemoryRepo = require("../test/InMemoryRepo");
 const dotenv = require("dotenv");
 const SubmitAnswersController = require("./controllers/SubmitAnswersController");
 
@@ -20,7 +20,7 @@ let resultsRepo = new InMemoryRepo();
 // Tutaj należy dodawać nowe kontrolery.
 const controllers = [
   new CreateFormController(formRepo),
-  new SubmitAnswersController(formRepo, answerRepo, resultsRepo)
+  new SubmitAnswersController(formRepo, answerRepo, resultsRepo),
 ];
 
 const app = new App(controllers);

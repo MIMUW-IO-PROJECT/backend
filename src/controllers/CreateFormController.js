@@ -1,5 +1,5 @@
 const express = require("express");
-const FormValidator = require("../validators/FormValidator")
+const FormValidator = require("../validators/FormValidator");
 
 module.exports = class CreateFormController {
   constructor(formRepository) {
@@ -12,13 +12,11 @@ module.exports = class CreateFormController {
   }
 
   initializeRoutes() {
-    this.router
-      .route(`${this.path}`)
-      .post(this.post);
+    this.router.route(`${this.path}`).post(this.post);
   }
 
   post = async (req, res) => {
-    const form = this.getForm(req.body)
+    const form = this.getForm(req.body);
 
     if (FormValidator.isValid(form)) {
       const id = this.formRepository.save(form);
@@ -26,15 +24,14 @@ module.exports = class CreateFormController {
       res.send(id);
     } else {
       console.log(`Form invalid ${form}`);
-      res.status(404).send('Invalid form!');
+      res.status(404).send("Invalid form!");
     }
-  }
+  };
 
   getForm(form) {
     return {
       endDate: form.endDate,
-      questions: form.questions
-    }
+      questions: form.questions,
+    };
   }
-
 };

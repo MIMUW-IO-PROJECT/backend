@@ -6,8 +6,8 @@
   "scripts": {
     "test": "mocha",
     "start": "nodemon",
-    "prettier-check": "prettier --check src/**/*.js",
-    "prettier-format": "prettier --write src/**/*.js",
+    "prettier-check": "prettier --check ./**/*.js",
+    "prettier-format": "prettier --write ./**/*.js",
     "eslint": "eslint ."
   },
   "author": "malina",
