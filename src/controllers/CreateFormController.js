@@ -39,10 +39,9 @@ module.exports = class CreateFormController {
   }
 
   createEmptyResults(form, formId) {
-    let r = {formId: formId, results: []};
-    form.questions.forEach(q => {
-      if (q.type === constants.SINGLE_ANS 
-        || q.type === constants.MULTI_ANS) {
+    let r = { formId: formId, results: [] };
+    form.questions.forEach((q) => {
+      if (q.type === constants.SINGLE_ANS || q.type === constants.MULTI_ANS) {
         r.results.push(Array(q.answers.length).fill(0));
       } else {
         r.results.push(Array());

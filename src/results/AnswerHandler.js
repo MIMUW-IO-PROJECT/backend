@@ -36,7 +36,7 @@ module.exports = class AnswerHandler {
   }
 
   handleClosedMulti(results, answer) {
-    answer.forEach(a => {
+    answer.forEach((a) => {
       results[a] += 1;
     });
     return;
@@ -46,5 +46,4 @@ module.exports = class AnswerHandler {
     results.push(answer);
     return;
   }
-
 };
