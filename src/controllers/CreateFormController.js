@@ -14,19 +14,19 @@ module.exports = class CreateFormController {
   }
 
   initializeRoutes() {
-    this.router.route(`${this.path}`).post(this.post);
+    this.router.route(this.path).post(this.post);
   }
 
   post = async (req, res) => {
     const form = this.getForm(req.body);
 
     if (FormValidator.isValid(form)) {
-      const id = this.formRepo.save(form);
-      this.resultsRepo.save(this.createEmptyResults(form, id));
-      console.log(`Form created ${form}`);
+      const id = await this.formRepo.save(form);
+      await this.resultsRepo.save(this.createEmptyResults(form, id));
+      console.log(`Form created:`, form);
       res.send(id);
     } else {
-      console.log(`Form invalid ${form}`);
+      console.log(`Form invalid:`, form);
       res.status(404).send("Invalid form!");
     }
   };

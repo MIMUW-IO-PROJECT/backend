@@ -5,4 +5,5 @@ class OpenQuestionValidator {
     return question && question.question && question.type === constants.OPEN;
   }
 }
+
 module.exports = OpenQuestionValidator;

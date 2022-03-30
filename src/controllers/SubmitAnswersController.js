@@ -12,18 +12,18 @@ module.exports = class SubmitAnswersController {
     this.answerHandler = new AnswerHandler(resultsRepository, formRepository);
 
     this.initializeRoutes();
-    console.log("SubmitAnswersController initialized");
+    console.log("SubmitAnswersController initialized.");
   }
 
   initializeRoutes() {
-    this.router.route(`${this.path}`).post(this.post);
+    this.router.route(this.path).post(this.post);
   }
 
   post = async (req, res) => {
     const answer = this.getAnswer(req.body);
 
     if (this.validator.isValid(answer)) {
-      const id = this.answerRepository.save(answer);
+      const id = await this.answerRepository.save(answer);
       this.answerHandler.handle(answer);
       res.send(id);
     } else {

@@ -11,12 +11,12 @@ module.exports = class AnswerHandler {
     const form = this.formRepo.get(formId);
     const results = this.repo.get(formId);
 
-    console.log(`I am handling answer ${answer}`);
+    console.log(`Handling answer: `, answer);
 
     for (let i = 0; i < form.questions.length; ++i) {
       const q = form.questions[i];
       const a = answer.answers[i];
-      let r = results.results[i];
+      const r = results.results[i];
 
       if (q.type === constants.SINGLE_ANS) {
         this.handleClosedSingle(r, a);
