@@ -20,11 +20,11 @@ describe("CreateFormController test", () => {
     this.api = new CreateFormController(this.repo, this.resultsRepo);
   });
 
-  it("should save valid form", () => {
+  it("should save valid form", async () => {
     let request = { body: samples.FORM };
     let res = new MockResponse();
 
-    this.api.post(request, res);
+    await this.api.post(request, res);
 
     assert.deepEqual(this.repo.get(res.body.id), samples.FORM);
   });

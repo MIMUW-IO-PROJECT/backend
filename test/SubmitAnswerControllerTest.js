@@ -24,12 +24,12 @@ describe("SubmitAnswerController test", () => {
     this.api = new SubmitAnswersController(formRepo, answerRepo, resultsRepo);
   });
 
-  it("should save valid answer", () => {
+  it("should save valid answer", async () => {
     let answer = JSON.parse(JSON.stringify(samples.ANS));
     let request = { body: answer };
     let res = new MockResponse();
 
-    this.api.post(request, res);
+    await this.api.post(request, res);
 
     assert.deepEqual(this.api.answerRepository.get(res.body.id), samples.ANS);
   });

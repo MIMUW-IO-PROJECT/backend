@@ -6,10 +6,10 @@ class FormAnswerValidator {
   }
 
   isValid(answer) {
-    console.log(`validating answer: ${answer}`);
+    console.log(`validating answer:`, answer);
 
     if (!this.repo.contains(answer.formId)) {
-      console.log("Form not found");
+      console.log('Form not found', answer.formId);
       return false;
     }
 
