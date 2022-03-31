@@ -1,16 +1,27 @@
+const App = require("./App");
+const CreateFormController = require("./controllers/CreateFormController");
+const InMemoryRepo = require("../test/InMemoryRepo");
+const dotenv = require("dotenv");
+const SubmitAnswersController = require("./controllers/SubmitAnswersController");
+
 // To jest plik główny projektu.
 
 // Wczytujemy zmienne z pliku .env.
-const dotenv = require("dotenv").config();
-if (dotenv.error) {
-  console.log(dotenv.error);
+const config = dotenv.config();
+if (config.error) {
+  console.log(config.error);
 }
 
-const App = require("./App");
-const SimpleController = require("./controllers/simpleController");
+// TODO: zamienić na mongo
+const formRepo = new InMemoryRepo();
+const answerRepo = new InMemoryRepo();
+const resultsRepo = new InMemoryRepo();
 
 // Tutaj należy dodawać nowe kontrolery.
-const controllers = [new SimpleController()];
+const controllers = [
+  new CreateFormController(formRepo, resultsRepo),
+  new SubmitAnswersController(formRepo, answerRepo, resultsRepo),
+];
 
 const app = new App(controllers);
 
