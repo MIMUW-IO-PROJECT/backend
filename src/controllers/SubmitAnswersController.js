@@ -24,7 +24,7 @@ module.exports = class SubmitAnswersController {
 
     if (this.validator.isValid(answer)) {
       const id = await this.answerRepository.save(answer);
-      this.answerHandler.handle(answer);
+      await this.answerHandler.handle(answer);
       res.send(id);
     } else {
       res.status(404).send("Invalid answer!");

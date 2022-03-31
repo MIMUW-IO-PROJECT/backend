@@ -2,14 +2,14 @@ const constants = require("../constants");
 
 module.exports = class AnswerHandler {
   constructor(resultsRepository, formRepository) {
-    this.repo = resultsRepository;
+    this.resultRepo = resultsRepository;
     this.formRepo = formRepository;
   }
 
-  handle(answer) {
+  async handle(answer) {
     const formId = answer.formId;
-    const form = this.formRepo.get(formId);
-    const results = this.repo.get(formId);
+    const form = await this.formRepo.get(formId);
+    const results = await this.resultRepo.get(formId);
 
     console.log(`Handling answer: `, answer);
 
@@ -26,7 +26,7 @@ module.exports = class AnswerHandler {
         this.handleOpen(r, a);
       }
     }
-    this.repo.update(formId, results);
+    await this.resultRepo.update(formId, results);
     return;
   }
 
