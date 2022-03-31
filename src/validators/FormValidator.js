@@ -18,7 +18,10 @@ class FormValidator {
 
     for (let i = 0; i < form.questions.length; ++i) {
       const q = form.questions[i];
-      if (!OpenQuestionValidator.isValid(q) && !ClosedQuestionValidator.isValid(q)) {
+      if (
+        !OpenQuestionValidator.isValid(q) &&
+        !ClosedQuestionValidator.isValid(q)
+      ) {
         return false;
       }
     }
