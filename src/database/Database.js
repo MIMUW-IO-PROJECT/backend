@@ -1,10 +1,4 @@
-/*
-  Klasa Database udostępnia statyczną metodę connect.
-*/
-
 const mongoose = require("mongoose");
-
-require("dotenv").config();
 
 class Database {
   static connect() {
@@ -17,10 +11,10 @@ class Database {
       console.log(err);
     });
 
-    mongoose.connection.once("open", function () {
+    mongoose.connection.once("open", () => {
       console.log("Connected successfully");
     });
   }
 }
 
-module.exports.Database;
+module.exports = Database;
