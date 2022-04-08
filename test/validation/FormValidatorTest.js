@@ -1,6 +1,6 @@
 const assert = require("assert");
-const samples = require("./samples");
-const FormValidator = require("../src/validators/FormValidator");
+const samples = require("../samples");
+const FormValidator = require("../../src/validators/FormValidator");
 
 describe("Form Validation Test", () => {
   it("should pass valid form", () => {

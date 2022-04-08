@@ -1,11 +1,14 @@
 const express = require("express");
+const { default: mongoose } = require("mongoose");
+const models = require("../database/models");
 
 module.exports = class GetResultsController {
-  constructor(resultsRepository) {
+  /**
+   * @param {mongoose.Collection} resultsRepository
+   */
+  constructor() {
     this.path = "/results";
     this.router = express.Router();
-
-    this.repo = resultsRepository;
 
     this.initializeRoutes();
     console.log("GetResultsController initialized.");
@@ -16,13 +19,11 @@ module.exports = class GetResultsController {
   }
 
   get = async (req, res) => {
-    const formId = req.body.id;
-
-    let results = await this.repo.get(formId);
-    if (results) {
+    let results = await models.Result.findOne({formId: req.body.formId}).lean();
+    if (results !== null) {
       res.send(results);
     } else {
-      res.status(404).send(`Form ${formId} does not exist.`);
+      res.status(404).send();
     }
   };
 };

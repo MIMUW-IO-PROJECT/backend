@@ -4,7 +4,8 @@
   "description": "",
   "main": "./src/server.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --recursive  --require test/integration/setup.js",
+    "integration": "mocha test/integration --require test/integration/setup.js",
     "start": "nodemon",
     "prettier-check": "prettier --check .",
     "prettier-format": "prettier --write .",
@@ -18,7 +19,10 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mocha": "^9.2.2",
+    "mongo-unit": "^3.2.0",
+    "mongodb-memory-server": "^8.4.2",
     "mongoose": "^6.2.6",
+    "supertest": "^6.2.2",
     "validator": "^13.7.0"
   },
   "devDependencies": {

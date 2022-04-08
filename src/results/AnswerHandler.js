@@ -1,15 +1,14 @@
 const constants = require("../constants");
+const models = require("../database/models");
 
 module.exports = class AnswerHandler {
-  constructor(resultsRepository, formRepository) {
-    this.resultRepo = resultsRepository;
-    this.formRepo = formRepository;
+  constructor() {
   }
 
   async handle(answer) {
     const formId = answer.formId;
-    const form = await this.formRepo.get(formId);
-    const results = await this.resultRepo.get(formId);
+    const form = await models.Form.findById(formId).lean();
+    const results = await models.Result.findOne({formId: formId});
 
     console.log(`Handling answer: `, answer);
 
@@ -26,7 +25,7 @@ module.exports = class AnswerHandler {
         this.handleOpen(r, a);
       }
     }
-    await this.resultRepo.update(formId, results);
+    // TODO
     return;
   }
 

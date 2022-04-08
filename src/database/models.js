@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const questionSchema = new mongoose.Schema({
+  _id: false,
   type: {
     type: String,
     enum: ["OPEN", "MULTI", "SINGLE"],
@@ -23,4 +24,14 @@ const formSchema = new mongoose.Schema({
 });
 
 const Form = mongoose.model("Form", formSchema);
-module.exports = { Question, Form };
+
+const resultSchema = new mongoose.Schema({
+  formId: {
+    type: String,
+  },
+  results: [[String]],
+});
+
+const Result = mongoose.model("Result", resultSchema);
+
+module.exports = { Question, Form, Result };

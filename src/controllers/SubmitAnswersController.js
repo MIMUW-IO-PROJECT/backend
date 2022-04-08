@@ -1,15 +1,16 @@
 const express = require("express");
 const AnswerHandler = require("../results/AnswerHandler");
 const FormAnswerValidator = require("../validators/FormAnswerValidator");
+const models = require("../../src/database/models");
 
 module.exports = class SubmitAnswersController {
-  constructor(formRepository, answerRepository, resultsRepository) {
+
+  constructor() {
     this.path = "/answer";
     this.router = express.Router();
 
-    this.answerRepository = answerRepository;
-    this.validator = new FormAnswerValidator(formRepository);
-    this.answerHandler = new AnswerHandler(resultsRepository, formRepository);
+    this.validator = new FormAnswerValidator();
+    this.answerHandler = new AnswerHandler();
 
     this.initializeRoutes();
     console.log("SubmitAnswersController initialized.");
@@ -21,11 +22,10 @@ module.exports = class SubmitAnswersController {
 
   post = async (req, res) => {
     const answer = this.getAnswer(req.body);
-
-    if (this.validator.isValid(answer)) {
-      const id = await this.answerRepository.save(answer);
+    const form = await models.Form.findById(answer.formId).lean();
+    if (this.validator.isValid(answer, form)) {
       await this.answerHandler.handle(answer);
-      res.send(id);
+      res.send("OK");
     } else {
       res.status(404).send("Invalid answer!");
     }

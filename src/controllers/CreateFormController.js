@@ -1,13 +1,15 @@
 const express = require("express");
 const FormValidator = require("../validators/FormValidator");
 const constants = require("../constants");
+// eslint-disable-next-line no-unused-vars
+const { default: mongoose } = require("mongoose");
+const models = require("../database/models");
 
 module.exports = class CreateFormController {
-  constructor(formRepository, resultsRepostitory) {
+
+  constructor() {
     this.path = "/create";
     this.router = express.Router();
-    this.formRepo = formRepository;
-    this.resultsRepo = resultsRepostitory;
 
     this.initializeRoutes();
     console.log("CreateFormController initialized");
@@ -21,25 +23,32 @@ module.exports = class CreateFormController {
     const form = this.getForm(req.body);
 
     if (FormValidator.isValid(form)) {
-      const id = await this.formRepo.save(form);
-      await this.resultsRepo.save(this.createEmptyResults(form, id));
+      await form.save();
+      await this.createEmptyResults(form).save();
       console.log(`Form created:`, form);
-      res.send(id);
+      res.send(form);
     } else {
       console.log(`Form invalid:`, form);
-      res.status(404).send("Invalid form!");
+      res.status(400).send("Invalid form!");
     }
   };
 
+  /**
+   * @returns {mongoose.Document}
+   */
   getForm(form) {
-    return {
+    return new models.Form({
       endDate: form.endDate,
       questions: form.questions,
-    };
+    });
   }
 
+   /**
+   * @returns {mongoose.Document}
+   */
   createEmptyResults(form, formId) {
-    let r = { formId: formId, results: [] };
+    let r = new models.Result({ formId: formId, results: [] });
+
     form.questions.forEach((q) => {
       if (q.type === constants.SINGLE_ANS || q.type === constants.MULTI_ANS) {
         r.results.push(Array(q.answers.length).fill(0));
@@ -47,6 +56,7 @@ module.exports = class CreateFormController {
         r.results.push(Array());
       }
     });
+    
     return r;
   }
 };

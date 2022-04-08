@@ -1,21 +1,10 @@
 const constants = require("../constants");
 
 class FormAnswerValidator {
-  constructor(formRepo) {
-    this.repo = formRepo;
-  }
-
-  isValid(answer) {
+  isValid(answer, form) {
     console.log(`validating answer:`, answer);
 
-    if (!this.repo.contains(answer.formId)) {
-      console.log("Form not found", answer.formId);
-      return false;
-    }
-
-    const form = this.repo.get(answer.formId);
     let res = true;
-
     for (let i = 0; i < form.questions.length; ++i) {
       const q = form.questions[i];
       const a = answer.answers[i];
