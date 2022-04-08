@@ -1,5 +1,4 @@
 const express = require("express");
-const { default: mongoose } = require("mongoose");
 const models = require("../database/models");
 
 module.exports = class GetResultsController {
