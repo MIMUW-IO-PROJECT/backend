@@ -18,7 +18,9 @@ module.exports = class GetResultsController {
   }
 
   get = async (req, res) => {
-    let results = await models.Result.findOne({formId: req.body.formId}).lean();
+    let results = await models.Result.findOne({
+      formId: req.body.formId,
+    }).lean();
     if (results !== null) {
       res.send(results);
     } else {

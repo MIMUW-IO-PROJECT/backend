@@ -6,7 +6,6 @@ const { default: mongoose } = require("mongoose");
 const models = require("../database/models");
 
 module.exports = class CreateFormController {
-
   constructor() {
     this.path = "/create";
     this.router = express.Router();
@@ -43,7 +42,7 @@ module.exports = class CreateFormController {
     });
   }
 
-   /**
+  /**
    * @returns {mongoose.Document}
    */
   createEmptyResults(form, formId) {
@@ -56,7 +55,7 @@ module.exports = class CreateFormController {
         r.results.push(Array());
       }
     });
-    
+
     return r;
   }
 };

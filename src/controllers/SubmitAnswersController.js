@@ -4,7 +4,6 @@ const FormAnswerValidator = require("../validators/FormAnswerValidator");
 const models = require("../../src/database/models");
 
 module.exports = class SubmitAnswersController {
-
   constructor() {
     this.path = "/answer";
     this.router = express.Router();

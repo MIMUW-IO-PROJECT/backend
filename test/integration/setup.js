@@ -6,11 +6,11 @@ module.exports.mochaHooks = {
     await mockoDB.connect();
   },
 
-  beforeEach: async() => {
+  beforeEach: async () => {
     await mongoose.connection.dropDatabase();
   },
 
   afterAll: async () => {
     await mockoDB.disconnect();
-  }
+  },
 };

@@ -13,17 +13,14 @@ describe("Request test", async () => {
 
     const response = await request(app)
       .get("/results")
-      .send({formId: res.formId})
-      .expect(200)
-    
+      .send({ formId: res.formId })
+      .expect(200);
+
     assert.deepEqual(response.body.formId, samples.RES.formId);
     assert.deepEqual(response.body.results, samples.RES.results);
   });
 
   it("should block invalid form", async () => {
-    await request(app)
-      .get("/results")
-      .send({})
-      .expect(404);
+    await request(app).get("/results").send({}).expect(404);
   });
 });

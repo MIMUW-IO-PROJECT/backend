@@ -2,13 +2,12 @@ const constants = require("../constants");
 const models = require("../database/models");
 
 module.exports = class AnswerHandler {
-  constructor() {
-  }
+  constructor() {}
 
   async handle(answer) {
     const formId = answer.formId;
     const form = await models.Form.findById(formId).lean();
-    const results = await models.Result.findOne({formId: formId});
+    const results = await models.Result.findOne({ formId: formId });
 
     console.log(`Handling answer: `, answer);
 
