@@ -18,13 +18,13 @@ module.exports = class CreateFormController {
   }
 
   post = async (req, res) => {
-    const form = this.getForm(req.body);
+    const form = this.getForm(req.body.form);
 
     if (FormValidator.isValid(form)) {
       const id = await this.formRepo.save(form);
       await this.resultsRepo.save(this.createEmptyResults(form, id));
       console.log(`Form created:`, form);
-      res.send(id);
+      res.send(id.toString());
     } else {
       console.log(`Form invalid:`, form);
       res.status(404).send("Invalid form!");

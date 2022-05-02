@@ -3,6 +3,7 @@ const CreateFormController = require("./controllers/CreateFormController");
 const InMemoryRepo = require("../test/InMemoryRepo");
 const dotenv = require("dotenv");
 const SubmitAnswersController = require("./controllers/SubmitAnswersController");
+const GetResultsController = require("./controllers/GetResultsController");
 
 // To jest plik główny projektu.
 
@@ -21,6 +22,7 @@ const resultsRepo = new InMemoryRepo();
 const controllers = [
   new CreateFormController(formRepo, resultsRepo),
   new SubmitAnswersController(formRepo, answerRepo, resultsRepo),
+  new GetResultsController(resultsRepo),
 ];
 
 const app = new App(controllers);
