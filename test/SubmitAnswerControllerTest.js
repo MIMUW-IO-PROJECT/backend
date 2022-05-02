@@ -31,7 +31,10 @@ describe("SubmitAnswerController test", () => {
 
     await this.api.post(request, res);
 
-    assert.deepEqual(this.api.answerRepository.get(res.body.id), samples.ANS);
+    assert.deepEqual(
+      this.api.answerRepository.get(Number(res.body.id)),
+      samples.ANS
+    );
   });
 
   it("should block invalid answer", () => {
