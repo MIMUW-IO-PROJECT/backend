@@ -29,7 +29,7 @@ const resultSchema = new mongoose.Schema({
   formId: {
     type: String,
   },
-  results: [[String]],
+  results: Object,
 });
 
 const Result = mongoose.model("Result", resultSchema);

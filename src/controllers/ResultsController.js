@@ -1,7 +1,7 @@
 const express = require("express");
 const models = require("../database/models");
 
-module.exports = class GetResultsController {
+module.exports = class ResultsController {
   /**
    * @param {mongoose.Collection} resultsRepository
    */
@@ -10,7 +10,7 @@ module.exports = class GetResultsController {
     this.router = express.Router();
 
     this.initializeRoutes();
-    console.log("GetResultsController initialized.");
+    console.log("ResultsController initialized.");
   }
 
   initializeRoutes() {

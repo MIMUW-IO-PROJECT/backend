@@ -1,6 +1,6 @@
 const constants = require("../constants");
 
-class FormAnswerValidator {
+module.exports = {
   isValid(answer, form) {
     console.log(`validating answer:`, answer);
 
@@ -9,23 +9,26 @@ class FormAnswerValidator {
       const q = form.questions[i];
       const a = answer.answers[i];
 
-      if (q.type === constants.SINGLE_ANS) {
-        res &= this.isValidAnswerToClosedSingleQuestion(q, a);
-      } else if (q.type === constants.MULTI_ANS) {
-        res &= this.isValidAnswerToClosedMultiQuestion(q, a);
-      } else if (q.type === constants.OPEN) {
-        res &= this.isValidAnswerToOpenQuestion(q, a);
-      } else {
-        res = false;
+      switch (q.type) {
+        case constants.SINGLE_ANS:
+          res &= this.isValidAnswerToClosedSingleQuestion(q, a);
+          break;
+        case constants.MULTI_ANS:
+          res &= this.isValidAnswerToClosedMultiQuestion(q, a);
+          break;
+        case constants.OPEN:
+          break;
+        default:
+          res = false;
       }
     }
     return res;
-  }
+  },
 
   isValidAnswerToClosedSingleQuestion(question, answer) {
     const numAnswers = question.answers.length;
     return Number.isInteger(answer) && 0 <= answer && answer < numAnswers;
-  }
+  },
 
   isValidAnswerToClosedMultiQuestion(question, answer) {
     if (!Array.isArray(answer)) {
@@ -47,10 +50,5 @@ class FormAnswerValidator {
       }
     }
     return true;
-  }
-
-  isValidAnswerToOpenQuestion() {
-    return true;
-  }
-}
-module.exports = FormAnswerValidator;
+  },
+};

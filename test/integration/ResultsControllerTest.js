@@ -3,9 +3,9 @@ const request = require("supertest");
 const samples = require("../samples");
 const models = require("../../src/database/models");
 
-const GetResultsController = require("../../src/controllers/GetResultsController");
+const ResultsController = require("../../src/controllers/ResultsController");
 const App = require("../../src/App");
-const app = new App([new GetResultsController()]).app;
+const app = new App([new ResultsController()]).app;
 
 describe("Request test", async () => {
   it("should get results", async () => {
