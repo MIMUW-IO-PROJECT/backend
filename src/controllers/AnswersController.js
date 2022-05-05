@@ -24,6 +24,7 @@ module.exports = class AnswersController {
       results = await Result.findOne({ formId: answer.formId });
     } catch (err) {
       res.status(404).send();
+      return;
     }
 
     if (!FormAnswerValidator.isValid(answer, form)) {
