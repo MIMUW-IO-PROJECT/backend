@@ -14,12 +14,12 @@ module.exports = class ResultsController {
   }
 
   initializeRoutes() {
-    this.router.route(this.path).get(this.get);
+    this.router.get("/results/:formId", this.get);
   }
 
   get = async (req, res) => {
     let results = await models.Result.findOne({
-      formId: req.body.formId,
+      formId: req.params.formId,
     }).lean();
     if (results !== null) {
       res.send(results);

@@ -12,8 +12,8 @@ describe("Request test", async () => {
     const res = await new models.Result(samples.RES).save();
 
     const response = await request(app)
-      .get("/results")
-      .send({ formId: res.formId })
+      .get(`/results/${res.formId}`)
+      .send()
       .expect(200);
 
     assert.deepEqual(response.body.formId, samples.RES.formId);
@@ -21,6 +21,6 @@ describe("Request test", async () => {
   });
 
   it("should block invalid form", async () => {
-    await request(app).get("/results").send({}).expect(404);
+    await request(app).get("/results/-1").send().expect(404);
   });
 });

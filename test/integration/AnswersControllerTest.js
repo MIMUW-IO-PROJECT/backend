@@ -26,8 +26,8 @@ describe("Request test", async () => {
     await request(app).post("/answer").send(a).expect(200);
 
     const { _body: actual } = await request(app)
-      .get("/results")
-      .send({ formId: a.formId })
+      .get(`/results/${a.formId}`)
+      .send()
       .expect(200);
 
     assert.deepEqual(actual.results, [[0, 1, 0], [1, 1, 1], ["Why not?"]]);
