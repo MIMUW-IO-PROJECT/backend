@@ -20,6 +20,7 @@ define("FORM", {
     {
       type: "OPEN",
       question: "Blah blah blah?",
+      answers: [],
     },
   ],
 });

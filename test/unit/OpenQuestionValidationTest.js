@@ -1,5 +1,5 @@
 const assert = require("assert");
-const OpenQuestionValidator = require("../src/validators/OpenQuestionValidator");
+const OpenQuestionValidator = require("../../src/validators/OpenQuestionValidator");
 
 describe("Open question validation test", () => {
   const validOpenQuestion = {

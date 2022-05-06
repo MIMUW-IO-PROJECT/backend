@@ -1,5 +1,5 @@
 const assert = require("assert");
-const ClosedQuestionValidator = require("../src/validators/ClosedQuestionValidator");
+const ClosedQuestionValidator = require("../../src/validators/ClosedQuestionValidator");
 
 describe("Closed question validation test", () => {
   const validClosedQuestion = {

@@ -1,8 +1,9 @@
 const App = require("./App");
-const CreateFormController = require("./controllers/CreateFormController");
-const InMemoryRepo = require("../test/InMemoryRepo");
+const CreateFormController = require("./controllers/FormController");
 const dotenv = require("dotenv");
-const SubmitAnswersController = require("./controllers/SubmitAnswersController");
+const SubmitAnswersController = require("./controllers/AnswersController");
+const GetResultsController = require("./controllers/ResultsController");
+const Database = require("./database/Database");
 
 // To jest plik główny projektu.
 
@@ -12,15 +13,13 @@ if (config.error) {
   console.log(config.error);
 }
 
-// TODO: zamienić na mongo
-const formRepo = new InMemoryRepo();
-const answerRepo = new InMemoryRepo();
-const resultsRepo = new InMemoryRepo();
+Database.connect();
 
 // Tutaj należy dodawać nowe kontrolery.
 const controllers = [
-  new CreateFormController(formRepo, resultsRepo),
-  new SubmitAnswersController(formRepo, answerRepo, resultsRepo),
+  new CreateFormController(),
+  new SubmitAnswersController(),
+  new GetResultsController(),
 ];
 
 const app = new App(controllers);
