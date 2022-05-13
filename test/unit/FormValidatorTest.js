@@ -18,4 +18,10 @@ describe("Form Validation Test", () => {
     form.questions = [];
     assert(!FormValidator.isValid(form));
   });
+
+  it("should block invalid date", () => {
+    let form = JSON.parse(JSON.stringify(samples.FORM));
+    form.endDate = "asdsda";
+    assert(FormValidator.isValid(samples.FORM));
+  });
 });

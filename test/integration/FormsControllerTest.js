@@ -7,7 +7,7 @@ const CreateFormController = require("../../src/controllers/FormController");
 const App = require("../../src/App");
 const app = new App([new CreateFormController()]).app;
 
-describe("Request test", async () => {
+describe("Form controller test", async () => {
   it("should save valid form", async () => {
     const response = await request(app)
       .post("/forms")
@@ -21,6 +21,24 @@ describe("Request test", async () => {
 
   it("should block invalid form", async () => {
     await request(app).post("/forms").send({}).expect(400);
+  });
+
+  it("should block form when endDate not set", async () => {
+    let form = JSON.parse(JSON.stringify(samples.FORM));
+    form.endDate = undefined;
+    await request(app).post("/forms").send(form).expect(400);
+  });
+
+  it("should block form when no questions", async () => {
+    let form = JSON.parse(JSON.stringify(samples.FORM));
+    form.questions = [];
+    await request(app).post("/forms").send(form).expect(400);
+  });
+
+  it("should block invalid date", async () => {
+    let form = JSON.parse(JSON.stringify(samples.FORM));
+    form.endDate = "asdsda";
+    await request(app).post("/forms").send(form).expect(400);
   });
 
   it("should respond with required form", async () => {
