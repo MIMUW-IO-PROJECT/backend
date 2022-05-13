@@ -13,7 +13,7 @@ const { app } = new App([
   new ResultsController(),
 ]);
 
-describe("Request test", async () => {
+describe("Answer controller test", async () => {
   it("should save valid answer", async () => {
     const { _body: f } = await request(app)
       .post("/forms")

@@ -7,7 +7,7 @@ const ResultsController = require("../../src/controllers/ResultsController");
 const App = require("../../src/App");
 const app = new App([new ResultsController()]).app;
 
-describe("Request test", async () => {
+describe("Results controller test", async () => {
   it("should get results", async () => {
     const res = await new models.Result(samples.RES).save();
 
