@@ -3,6 +3,8 @@ const FormValidator = require("../validators/FormValidator");
 const constants = require("../constants");
 const models = require("../database/models");
 
+const { body, validationResult, matchedData } = require("express-validator");
+
 module.exports = class FormController {
   constructor() {
     this.path = "/forms";
@@ -16,19 +18,25 @@ module.exports = class FormController {
     this.router.post(`/forms`, this.post).get(`/forms/:id`, this.get);
   }
 
-  post = async (req, res) => {
-    const form = this.getForm(req.body);
-
-    if (FormValidator.isValid(form)) {
-      await form.save();
-      await this.createEmptyResults(form).save();
-      console.log(`Form created:`, form);
-      res.send(form);
-    } else {
-      console.log(`Form invalid:`, form);
-      res.status(400).send("Invalid form!");
-    }
-  };
+  post = [
+    body("endDate").isISO8601(),
+    body("questions")
+      .isArray()
+      .custom((q) => FormValidator.isValid(q)),
+    async (req, res) => {
+      const form = this.getForm(matchedData(req, ["body"]));
+      try {
+        validationResult(req).throw();
+        await form.save();
+        await this.createEmptyResults(form).save();
+        console.log(`Form created:`, form);
+        res.send(form);
+      } catch (err) {
+        console.error(`Form invalid:`, err);
+        res.status(400).send("Invalid form!");
+      }
+    },
+  ];
 
   get = async (req, res) => {
     try {
