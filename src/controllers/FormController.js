@@ -4,6 +4,7 @@ const constants = require("../constants");
 const models = require("../database/models");
 
 const { body, validationResult, matchedData } = require("express-validator");
+const { default: mongoose } = require("mongoose");
 
 module.exports = class FormController {
   constructor() {
@@ -44,6 +45,7 @@ module.exports = class FormController {
       const f = await models.Form.findById(req.params.id).lean();
       res.send(f);
     } catch (err) {
+      console.error(err);
       res.status(404).send();
     }
   };

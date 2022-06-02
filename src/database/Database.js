@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+mongoose.set('debug', true);
+
 class Database {
   static connect() {
     mongoose.connect(process.env.DATABASE_URI, {

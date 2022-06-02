@@ -1,0 +1,14 @@
+# https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: io-backend
+spec:
+  selector:
+    app: io-backend
+  ports:
+  - name: io-backend
+    protocol: TCP
+    port: 80
+    targetPort: 80

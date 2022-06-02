@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  io-backend
+  namespace: default
+  labels:
+    app:  io-backend
+spec:
+  selector:
+    matchLabels:
+      app: io-backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app:  io-backend
+    spec:
+      containers:
+      - name:  io-backend
+        image:  io-backend:latest
+        imagePullPolicy: Never
+        env:
+        - name: PORT
+          value: "80"
+     
