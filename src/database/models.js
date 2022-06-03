@@ -21,6 +21,9 @@ const formSchema = new mongoose.Schema({
     default: Date.now,
   },
   questions: [questionSchema],
+  formName: {
+    type: String,
+  } 
 });
 
 const Form = mongoose.model("Form", formSchema);

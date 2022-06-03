@@ -21,10 +21,13 @@ module.exports = class FormController {
 
   post = [
     body("endDate").isISO8601(),
+    body("name").isAscii(),
     body("questions")
       .isArray()
       .custom((q) => FormValidator.isValid(q)),
     async (req, res) => {
+      console.log('FORM!!!: ', req.body);
+
       const form = this.getForm(matchedData(req, ["body"]));
       try {
         validationResult(req).throw();
@@ -55,6 +58,7 @@ module.exports = class FormController {
    */
   getForm(form) {
     return new models.Form({
+      formName: form.name,
       endDate: form.endDate,
       questions: form.questions,
     });

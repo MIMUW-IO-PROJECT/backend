@@ -16,7 +16,11 @@ describe("Form controller test", async () => {
 
     const f = await models.Form.findById(response.body._id, "-_id -__v").lean();
 
-    assert.deepEqual(f, samples.FORM);
+    assert.deepEqual(f, {
+      formName: samples.FORM.name,
+      endDate: samples.FORM.endDate,
+      questions: samples.FORM.questions
+    });
   });
 
   it("should block invalid form", async () => {
@@ -26,6 +30,12 @@ describe("Form controller test", async () => {
   it("should block form when endDate not set", async () => {
     let form = JSON.parse(JSON.stringify(samples.FORM));
     form.endDate = undefined;
+    await request(app).post("/forms").send(form).expect(400);
+  });
+
+  it("should block form when name not set", async () => {
+    let form = JSON.parse(JSON.stringify(samples.FORM));
+    form.name = undefined;
     await request(app).post("/forms").send(form).expect(400);
   });
 

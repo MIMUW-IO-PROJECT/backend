@@ -5,6 +5,7 @@ function define(name, value) {
   });
 }
 define("FORM", {
+  name: "ANKIETA-IO",
   endDate: new Date(),
   questions: [
     {
