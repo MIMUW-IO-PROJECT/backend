@@ -21,7 +21,7 @@ module.exports = class FormController {
 
   post = [
     body("endDate").isISO8601(),
-    body("name").isAscii(),
+    body("name").not().isEmpty().trim().escape(),
     body("questions")
       .isArray()
       .custom((q) => FormValidator.isValid(q)),
